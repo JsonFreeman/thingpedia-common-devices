@@ -9,7 +9,7 @@ zipfiles = \
 	com.facebook.zip \
 	com.google.zip \
 	com.jawbone.up.zip \
-	com.onedrive.zip
+	edu.stanford.jasonf2_kkiningh.onedrive.zip
 
 all: $(zipfiles)
 

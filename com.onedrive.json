@@ -1,0 +1,32 @@
+{
+  "auth": {
+    "type": "oauth2"
+  },
+  "types": [
+    "online-account"
+  ],
+  "params": {},
+  "global-name": "onedrive",
+  "triggers": {
+    "file_created": {
+      "args": [
+        "filename"
+      ],
+      "schema": [
+        "String"
+      ],
+      "doc": "trigger on a file created in your onedrive"
+    }
+  },
+  "actions": {
+    "file_create": {
+      "args": [
+        "filename"
+      ],
+      "schema": [
+        "String"
+      ],
+      "doc": "create a new file in your onedrive"
+    }
+  }
+}

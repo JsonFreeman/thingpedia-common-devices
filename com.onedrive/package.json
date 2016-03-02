@@ -1,6 +1,6 @@
 {
-  "name": "onedrive-interface",
-  "version": "0.0.0",
+  "name": "thingengine-device-onedrive",
+  "version": "1.0.0",
   "description": "OneDrive interface for thingpedia",
   "main": "device.js",
   "scripts": {

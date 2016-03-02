@@ -11,26 +11,5 @@ module.exports = new Tp.DeviceClass({
         this.uniqueId = 'com.onedrive-' + this.profileId;
         this.name = "OneDrive Account %s".format(this.profileId);
         this.description = "This is your OneDrive Account.";
-    },
-
-    get profileId() {
-        return this.state.profileId;
-    },
-
-    get accessToken() {
-        return this.state.accessToken;
-    },
-
-    queryInterface: function(iface) {
-        switch (iface) {
-            case 'oauth2':
-                return this;
-            default:
-                return null;
-        }
-    },
-
-    refreshCredentials: function() {
-        // FINISHME refresh the access token using the refresh token
-    },
+    }
 });

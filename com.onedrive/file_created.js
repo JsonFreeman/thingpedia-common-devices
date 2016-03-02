@@ -1,8 +1,12 @@
 const Tp = require('thingpedia');
 
-module.exports = function(what, interval, formatter) {
-    return new Tp.ChannelClass({
-        Name: 'OneDrive' + what,
+const interval = 30 * 1000;
+function formatter(file) {
+    return [file.name];
+}
+
+module.exports = new Tp.ChannelClass({
+        Name: 'OneDriveFileCreatedTrigger',
         Extends: Tp.HttpPollingTrigger,
         RequiredCapabilities: ['channel-state'],
         interval: interval,
@@ -54,4 +58,3 @@ module.exports = function(what, interval, formatter) {
             }
         }
     });
-}

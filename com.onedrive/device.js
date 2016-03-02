@@ -5,7 +5,7 @@ module.exports = new Tp.DeviceClass({
     Name: 'OneDriveDevice',
     Extends: Tp.OnlineAccount,
     UseOAuth2: Tp.Helpers.OAuth2({
-        kind: "com.onedrive",
+        kind: 'edu.stanford.jasonf2_kkiningh.onedrive',
         client_id: "0000000040187E71",
         client_secret: "zBAvJlpqUOfY2lzvXYgsa-aHYKM1AC1h",
         authorize: "https://login.live.com/oauth20_authorize.srf",
@@ -30,8 +30,8 @@ module.exports = new Tp.DeviceClass({
         this.parent(engine, state);
 
         this.globalName = 'onedrive';
-        this.uniqueId = 'com.onedrive-' + this.profileId;
-        this.name = "OneDrive Account %s".format(this.profileId);
+        this.uniqueId = 'edu.stanford.jasonf2_kkiningh.onedrive';
+        this.name = "OneDrive Account";
         this.description = "This is your OneDrive Account.";
     },
 

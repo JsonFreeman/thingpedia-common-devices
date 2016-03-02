@@ -11,9 +11,17 @@ module.exports = new Tp.DeviceClass({
         scope: ['wl.signin', 'wl.offline_access', 'onedrive.readwrite', 'onedrive.appfolder']
         get_access_token: "https://login.live.com/oauth20_token.srf",
         callback: function(engine, accessToken, refreshToken) {
-            return engine.devices.loadOneDevice({ kind: 'com.onedrive',
-                                                  accessToken: accessToken,
-                                                  refreshToken: refreshToken });
+            var auth = 'Bearer ' + accessToken;
+            return Tp.Helpers.Http.get('https://api.onedrive.com/v1.0/drive',
+                                       { auth: auth,
+                                         accept: 'application/json' })
+            .then(function (response) {
+                var parsed = JSON.parse(response);
+                return engine.devices.loadOneDevice({ kind: 'com.onedrive',
+                                                      accessToken: accessToken,
+                                                      refreshToken: refreshToken,
+                                                      driveId: parsed.id });
+            }
         }
     })
 
@@ -33,4 +41,23 @@ module.exports = new Tp.DeviceClass({
     get refreshToken() {
         return this.state.refreshToken;
     }
+
+    get driveId() {
+        return this.state.driveId;
+    },
+
+    // it's cloud backed so always available
+    checkAvailable: function() {
+        return Tp.Availability.AVAILABLE;
+    },
+
+    queryInterface: function(iface) {
+        switch (iface) {
+        case 'oauth2':
+            return this;
+            // fallthrough
+        default:
+            return null;
+        }
+    },
 });

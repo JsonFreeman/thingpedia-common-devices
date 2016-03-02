@@ -1,4 +1,5 @@
-const Tp = require('thingpedia');
+"use strict";
+var Tp = require('thingpedia');
 
 module.exports = new Tp.DeviceClass({
     Name: 'OneDriveDevice',
@@ -8,7 +9,7 @@ module.exports = new Tp.DeviceClass({
         client_id: "0000000040187E71",
         client_secret: "zBAvJlpqUOfY2lzvXYgsa-aHYKM1AC1h",
         authorize: "https://login.live.com/oauth20_authorize.srf",
-        scope: ['wl.signin', 'wl.offline_access', 'onedrive.readwrite', 'onedrive.appfolder']
+        scope: ['wl.signin', 'wl.offline_access', 'onedrive.readwrite', 'onedrive.appfolder'],
         get_access_token: "https://login.live.com/oauth20_token.srf",
         callback: function(engine, accessToken, refreshToken) {
             var auth = 'Bearer ' + accessToken;
@@ -21,9 +22,9 @@ module.exports = new Tp.DeviceClass({
                                                       accessToken: accessToken,
                                                       refreshToken: refreshToken,
                                                       driveId: parsed.id });
-            }
+            });
         }
-    })
+    }),
 
     _init: function(engine, state) {
         this.parent(engine, state);
@@ -32,7 +33,7 @@ module.exports = new Tp.DeviceClass({
         this.uniqueId = 'com.onedrive-' + this.profileId;
         this.name = "OneDrive Account %s".format(this.profileId);
         this.description = "This is your OneDrive Account.";
-    }
+    },
 
     get accessToken() {
         return this.state.accessToken;
@@ -40,7 +41,7 @@ module.exports = new Tp.DeviceClass({
 
     get refreshToken() {
         return this.state.refreshToken;
-    }
+    },
 
     get driveId() {
         return this.state.driveId;
@@ -59,5 +60,5 @@ module.exports = new Tp.DeviceClass({
         default:
             return null;
         }
-    },
+    }
 });

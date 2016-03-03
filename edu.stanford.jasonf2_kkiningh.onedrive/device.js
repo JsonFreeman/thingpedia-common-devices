@@ -18,7 +18,7 @@ module.exports = new Tp.DeviceClass({
                                          accept: 'application/json' })
             .then(function (response) {
                 var parsed = JSON.parse(response);
-                return engine.devices.loadOneDevice({ kind: 'com.onedrive',
+                return engine.devices.loadOneDevice({ kind: 'edu.stanford.jasonf2_kkiningh.onedrive',
                                                       accessToken: accessToken,
                                                       refreshToken: refreshToken,
                                                       driveId: parsed.id });

@@ -17,7 +17,7 @@ module.exports = new Tp.ChannelClass({
             this._state = state;
 
             this._baseurl = 'https://api.onedrive.com/v1.0/drive/root/view.delta';
-            this.url = this._baseurl;
+            this.url = this._baseurl + "?token=latest";
         },
 
         get auth() {
@@ -38,19 +38,21 @@ module.exports = new Tp.ChannelClass({
             }
 
             var deltaToken = parsed["@delta.token"];
-            this.url = this._baseurl + "?token=" + deltaToken + "&filter=file%20ne%20null";
+            this.url = this._baseurl + "?token=" + deltaToken;
 
             var value = parsed.value;
             var previousResponseDate = new Date(state.get('previousDate'));
             if (value.length) {
                 var maxDate = new Date(value[0].createdDateTime);
                 for (var i in value) {
-                    var date = new Date(value[i].createdDateTime);
-                    if (maxDate < date) {
-                        maxDate = date;
-                    }
-                    if (previousResponseDate == undefined || previousResponseDate < date) {
-                        this.emitEvent(formatter(value[i]));
+                    if (value.file && !value.deleted) {
+                        var date = new Date(value[i].createdDateTime);
+                        if (maxDate < date) {
+                            maxDate = date;
+                        }
+                        if (previousResponseDate == undefined || previousResponseDate < date) {
+                            this.emitEvent(formatter(value[i]));
+                        }
                     }
                 }
 

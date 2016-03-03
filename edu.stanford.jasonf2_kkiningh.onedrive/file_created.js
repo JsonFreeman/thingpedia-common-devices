@@ -1,6 +1,6 @@
 const Tp = require('thingpedia');
 
-const interval = 30 * 1000;
+const interval = 10 * 1000;
 function formatter(file) {
     return [file.name];
 }
@@ -45,7 +45,7 @@ module.exports = new Tp.ChannelClass({
             if (value.length) {
                 var maxDate = new Date(value[0].createdDateTime);
                 for (var i in value) {
-                    if (value.file && !value.deleted) {
+                    if (value[i].file && !value[i].deleted) {
                         var date = new Date(value[i].createdDateTime);
                         if (maxDate < date) {
                             maxDate = date;

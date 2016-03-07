@@ -19,11 +19,13 @@
     }
   },
   "actions": {
-    "file_create": {
+    "create_file": {
       "args": [
-        "filename"
+        "filename",
+        "contents"
       ],
       "schema": [
+        "String",
         "String"
       ],
       "doc": "create a new file in your onedrive"

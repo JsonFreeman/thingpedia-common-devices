@@ -1,5 +1,5 @@
 const Tp = require('thingpedia');
-const Interval = 10 * 1000;
+const Interval = 5 * 60 * 1000; // 5 min should be OK
 
 function formatter(file) {
     return [file.name];

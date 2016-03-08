@@ -1,34 +1,63 @@
 {
-  "auth": {
-    "type": "oauth2"
-  },
-  "types": [
-    "online-account"
-  ],
-  "params": {},
-  "global-name": "onedrive",
-  "triggers": {
-    "file_created": {
-      "args": [
-        "filename"
-      ],
-      "schema": [
-        "String"
-      ],
-      "doc": "trigger on a file created in your onedrive"
+    "auth": {
+        "type": "oauth2"
+    },
+    "types": [
+        "online-account"
+    ],
+    "params": {},
+    "global-name": "onedrive",
+    "triggers": {
+        "file_created": {
+            "args": [
+                "filename"
+            ],
+            "schema": [
+                "String"
+            ],
+            "doc": "trigger on a file created in your onedrive"
+        },
+        "file_modified": {
+            "args": [
+                "filename"
+            ],
+            "schema": [
+                "String"
+            ],
+            "doc": "trigger when a file is modified in your onedrive"
+        }
+    },
+    "actions": {
+        "create_file": {
+            "args": [
+                "filename",
+                "contents"
+            ],
+            "schema": [
+                "String",
+                "String"
+            ],
+            "doc": "create a new file in your onedrive"
+        },
+        "delete_file": {
+            "args": [
+                "filename"
+            ],
+            "schema": [
+                "String"
+            ],
+            "doc": "delete a file in your onedrive"
+        },
+        "rename_file": {
+            "args": [
+                "filename",
+                "newFilename"
+            ],
+            "schema": [
+                "String",
+                "String"
+            ],
+            "doc": "rename a file in your onedrive"
+        }
     }
-  },
-  "actions": {
-    "create_file": {
-      "args": [
-        "filename",
-        "contents"
-      ],
-      "schema": [
-        "String",
-        "String"
-      ],
-      "doc": "create a new file in your onedrive"
-    }
-  }
 }

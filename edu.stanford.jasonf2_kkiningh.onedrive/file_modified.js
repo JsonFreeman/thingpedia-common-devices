@@ -6,7 +6,7 @@ function formatter(file) {
 }
 
 module.exports = new Tp.ChannelClass({
-    Name: 'OneDriveFileCreatedTrigger',
+    Name: 'OneDriveFileModifiedTrigger',
     Extends: Tp.HttpPollingTrigger,
     RequiredCapabilities: ['channel-state'],
     interval: Interval,
@@ -17,7 +17,7 @@ module.exports = new Tp.ChannelClass({
         this._state = state;
 
         this._baseurl = 'https://api.onedrive.com/v1.0/drive/root/view.delta';
-        this.url = this._baseurl + "?token=latest";
+        this.url = this._baseurl;
     },
 
     get auth() {
@@ -38,21 +38,19 @@ module.exports = new Tp.ChannelClass({
         }
 
         var deltaToken = parsed["@delta.token"];
-        this.url = this._baseurl + "?token=" + deltaToken;
+        this.url = this._baseurl + "?token=" + deltaToken + "&filter=file%20ne%20null";
 
         var value = parsed.value;
         var previousResponseDate = new Date(state.get('previousDate'));
         if (value.length) {
-            var maxDate = new Date(value[0].createdDateTime);
+            var maxDate = new Date(value[0].lastModifiedDateTime);
             for (var i in value) {
-                if (value[i].file && !value[i].deleted) {
-                    var date = new Date(value[i].createdDateTime);
-                    if (maxDate < date) {
-                        maxDate = date;
-                    }
-                    if (previousResponseDate == undefined || previousResponseDate < date) {
-                        this.emitEvent(formatter(value[i]));
-                    }
+                var date = new Date(value[i].lastModifiedDateTime);
+                if (maxDate < date) {
+                    maxDate = date;
+                }
+                if (previousResponseDate == undefined || previousResponseDate < date) {
+                    this.emitEvent(formatter(value[i]));
                 }
             }
 

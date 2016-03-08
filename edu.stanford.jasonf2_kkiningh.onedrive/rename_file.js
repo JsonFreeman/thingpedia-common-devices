@@ -14,9 +14,10 @@ module.exports = new Tp.ChannelClass({
         return "Bearer " + this.device.accessToken;
     },
 
-    _doInvoke: function(fileName, body) {
-        var url = this._baseurl + fileName + "/content";
-        Tp.Helpers.Http.request(url, 'PUT', body, {
+    _doInvoke: function(fileName, newFilename) {
+        var body = JSON.stringify({ name: newFilename });
+        var url = this._baseurl + fileName;
+        Tp.Helpers.Http.request(url, 'PATCH', body, {
             dataContentType: "text/plain",
             auth: this.auth
         }).done();

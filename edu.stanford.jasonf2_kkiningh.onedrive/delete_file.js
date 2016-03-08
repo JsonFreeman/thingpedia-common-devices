@@ -14,9 +14,9 @@ module.exports = new Tp.ChannelClass({
         return "Bearer " + this.device.accessToken;
     },
 
-    _doInvoke: function(fileName, body) {
-        var url = this._baseurl + fileName + "/content";
-        Tp.Helpers.Http.request(url, 'PUT', body, {
+    _doInvoke: function(fileName) {
+        var url = this._baseurl + fileName;
+        Tp.Helpers.Http.request(url, 'DELETE', '', {
             dataContentType: "text/plain",
             auth: this.auth
         }).done();
